@@ -23,7 +23,7 @@ public class SubActivity extends AppCompatActivity {
                 //인텐트에 포함된 Bluetooth 디바이스 오브젝트를 얻는다
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 //디바이스명과 MAC 주소 출력
-                Log.i("Log " , device.getName() + "," + device.getAddress());
+                Log.i("BlueTooth Log " , device.getName() + "," + device.getAddress());
             }
         }
     };

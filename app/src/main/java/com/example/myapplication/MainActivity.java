@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         textView = (TextView)findViewById(R.id.textview);
 
         Button btn = (Button)findViewById(R.id.button);
