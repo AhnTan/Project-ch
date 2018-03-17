@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -15,12 +16,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
    private BluetoothAdapter mBluetoothAdapter = null;
 
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
+
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE_WRITE = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
+
+
+
 
     private static final String TAG = "MAIN";
 
@@ -52,8 +67,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+            }
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                Toast.makeText(MainActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("근처에 있는 블루투스 기기 검색을 위해 위치권한이 필요합니다.")
+                .setDeniedMessage("거부하면 못쓴다 얄짤없다.")
+                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
+                .check();
+
+
         if(bluetoothService_obj == null) {
             bluetoothService_obj = new BluetoothService(this, mHandler);
+            if(bluetoothService_obj.getDeviceState()==true){
+                System.out.println("블루투스 활성?? 지원 ok");
+            }
         }
 
        // BluetoothAdapter 인스턴스를 얻는다.
@@ -76,8 +112,9 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mBluetoothAdapter.isEnabled())
-                bluetoothService_obj.enableBluetooth();
+                if(mBluetoothAdapter.isEnabled()) {
+                    bluetoothService_obj.enableBluetooth();
+                }
             }
         });
     }
@@ -88,20 +125,19 @@ public class MainActivity extends AppCompatActivity {
 
         switch(requestCode){
             case REQUEST_ENABLE_BT:
-                if(requestCode == REQUEST_ENABLE_BT){
                     // Bluetooth가 활성화되었음을 표시
                     if(resultCode == Activity.RESULT_OK){
+                        Log.d(TAG, "Bluetooth is enable");
                         bluetoothService_obj.scanDevice(); // 기기 검색을 요청하는 메소드 추가
                     }
                     // Bluetooth를 활성화 할 수 없음(사용자가 취소한 경우)
                     else{
                         Log.d(TAG, "Bluetooth is not enable");
                     }
-                }
-                break;
-            case REQUEST_CONNECT_DEVICE:
-                if(requestCode == Activity.RESULT_OK){
-                    // bluetoothService_obj.getDeviceinfo(data);
+                     break;
+            case REQUEST_CONNECT_DEVICE:  //DeviceListActivity reurn with a devices to connect
+                if(resultCode == Activity.RESULT_OK){
+                    //bluetoothService_obj.getDeviceinfo(data);
                 }
                 break;
 
