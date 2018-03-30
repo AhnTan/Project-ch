@@ -1,0 +1,174 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|right">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="str_start"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btn_start"
+        />
+
+    <TextView
+
+        android:text="Naver"
+        android:textColor="#887321"
+        android:id="@+id/txt_result"
+        android:singleLine="false"
+        android:layout_below="@id/btn_start"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:orientation="vertical"
+        >
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView android:id="@+id/A8" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/B8" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/C8" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/D8" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/E8" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/F8" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/G8" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/H8" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_weight="1">
+                <ImageView android:id="@+id/A7" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/B7" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/C7" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/D7" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/E7" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/F7" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/G7" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+                <ImageView android:id="@+id/H7" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A6" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/B6" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/C6" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/D6" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/E6" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/F6" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/G6" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/H6" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A5" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/B5" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/C5" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/D5" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/E5" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/F5" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/G5" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/H5" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A4" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/B4" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/C4" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/D4" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/E4" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/F4" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/G4" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/H4" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A3" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/B3" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/C3" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/D3" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/E3" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/F3" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/G3" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"/>
+            <ImageView android:id="@+id/H3" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A2" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/B2" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/C2" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/D2" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/E2" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/F2" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/G2" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp"  />
+            <ImageView android:id="@+id/H2" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp"  />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_weight="1">
+            <ImageView android:id="@+id/A1" android:background="#555555"  android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/B1" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/C1" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/D1" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/E1" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/F1" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/G1" android:background="#555555" android:layout_width="30dp" android:layout_height="30dp" />
+            <ImageView android:id="@+id/H1" android:background="#DDDDDD" android:layout_width="30dp" android:layout_height="30dp" />
+        </TableRow>
+
+        <TableRow
+            >
+            <ImageButton android:id="@+id/A0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/B0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/C0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/D0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/E0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/F0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/G0" android:visibility="invisible"/>
+            <ImageButton android:id="@+id/H0" android:visibility="invisible"/>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <!--<com.melnykov.fab.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refresh_fab"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_cached_black_24dp"
+        fab:fab_colorNormal="@color/colorAccent"
+        fab:fab_colorPressed="@color/fabPressed"
+        fab:fab_colorRipple="@color/fabRipple"/>-->
+
+
+</FrameLayout>

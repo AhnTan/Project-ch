@@ -1,14 +1,21 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +41,10 @@ public class MainActivity extends AppCompatActivity {
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
 
+    private final int MY_PERMISSION_REQUEST_STORAGE = 100;
 
+    public static final String DEVICE_NAME = "device_name";
+    public static final String TOAST = "toast";
 
 
     private static final String TAG = "MAIN";
@@ -43,7 +53,14 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothService bluetoothService_obj = null;
 
 
-    //public String ip = "localhost";
+    private DrawerLayout drawerLayout = null;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+    MainFragment mainFragment;
+    MainFragment2 mainFragment2;
+
+
     public String ip = "localhost";
     public int port = 30000;
 
@@ -57,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
             //BluetoothService로부터 메세지(msg)를 받는다.
             super.handleMessage(msg);
 
+            switch (msg.what){
+
+            }
+
         }
     };
 
@@ -66,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        checkPermission(Contact.PERMISSIONS);           // 음성인식 권한 요청
+        init();
 
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -137,13 +160,103 @@ public class MainActivity extends AppCompatActivity {
                      break;
             case REQUEST_CONNECT_DEVICE:  //DeviceListActivity reurn with a devices to connect
                 if(resultCode == Activity.RESULT_OK){
-                    //bluetoothService_obj.getDeviceinfo(data);
+                    bluetoothService_obj.getDeviceInfo(data);
                 }
                 break;
 
         }
 
     }
+
+
+    public void init(){
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
+        tabLayout = (TabLayout)findViewById(R.id.main_tabLayout);
+        viewPager = (ViewPager)findViewById(R.id.main_viewPager);
+
+        mainFragment = new MainFragment();
+        mainFragment2 = new MainFragment2();
+
+        tabLayout.addTab(tabLayout.newTab().setText("연결상태"));
+        tabLayout.addTab(tabLayout.newTab().setText("지난 기보 보기"));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(0);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println("포지션 : " + tab.getPosition());
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public class PageAdapter extends FragmentStatePagerAdapter {
+        public PageAdapter(FragmentManager manager){
+            super(manager);
+        }
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch(position){
+                case 0:
+                    return mainFragment;
+                case 1:
+                    return mainFragment2;
+            }
+            return null;
+        }
+    }
+
+
+    // 음성인식 체크 부분
+
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkPermission(String[] permissions) {
+
+        requestPermissions(permissions, MY_PERMISSION_REQUEST_STORAGE);
+    }
+
+    // Application permission 23
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST_STORAGE:
+                int cnt = permissions.length;
+                for (int i = 0; i < cnt; i++) {
+
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+                        //Log.i(LOG_TAG, "Permission[" + permissions[i] + "] = PERMISSION_GRANTED");
+                    } else {
+
+                    }
+                }
+                break;
+        }
+    }
+
 
 
 
