@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.List;
+
 public class ChessBoard{
 
 
@@ -17,6 +19,15 @@ public class ChessBoard{
 
     }
 
+    public void move(List<String> results){
+      for(String result : results){
+          if(result.equals("폰을 앞으로 두칸") || result.equals("씨투를 씨쓰리로 이동")){
+              imageView[6][4].setImageResource(0);
+              imageView[4][4].setImageResource(R.drawable.ic_pawn2);
+          }
+      }
+    }
+
     private void init(View view){
 
       //System.out.println("으갹갹 : " + (Long.parseLong(ch, 16)));
@@ -24,6 +35,7 @@ public class ChessBoard{
         MainBoard = new String[8][8];
         imageView = new ImageView[8][8];
 
+        // i는 행(가로) ,  j는 열(세로)
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
                 //MainBoard[i][j] = ( String.valueOf(ch+j) + Integer.toString(8-i));
@@ -33,6 +45,9 @@ public class ChessBoard{
                 // R.id.? 을 배열로 하는 함수법
                 int k = view.getResources().getIdentifier(MainBoard[i][j],"id","com.example.myapplication");
                 imageView[i][j] = (ImageView)view.findViewById(k);
+
+                System.out.println("이게되냐?:" + Character.toString((char)(0+65)));
+
 
                 // 폰 위치
                 if(i==1 || i==6){
@@ -95,10 +110,6 @@ public class ChessBoard{
 
             }
         }
-
-
-
-
-
     }
+
 }

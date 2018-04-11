@@ -4,12 +4,18 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -29,6 +35,10 @@ import com.gun0912.tedpermission.TedPermission;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Messenger mServiceMessenger = null;
+    private boolean mIsBound;
+
 
    private BluetoothAdapter mBluetoothAdapter = null;
 
@@ -59,13 +69,33 @@ public class MainActivity extends AppCompatActivity {
 
     MainFragment mainFragment;
     MainFragment2 mainFragment2;
-
+    Intent ServerIntent;
 
     public String ip = "localhost";
     public int port = 30000;
 
-
     TextView textView;
+
+    // 서비스 커넥션 해주는 바인더역할부분
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d("test","onServiceConnected");
+            mServiceMessenger = new Messenger(service);
+            try {
+                Message msg = Message.obtain(null, MyService.MSG_REGISTER_CLIENT);
+                msg.replyTo = mMessenger;
+                mServiceMessenger.send(msg);
+            }
+            catch (RemoteException e) {
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     private final Handler mHandler = new Handler(){
         //핸들러 기능을 수행할 클래스(handleMessage)
@@ -73,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg){
             //BluetoothService로부터 메세지(msg)를 받는다.
             super.handleMessage(msg);
+            System.out.println("안탄의 메세지 : " + msg.toString());
 
             switch (msg.what){
 
@@ -131,8 +162,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        Button btn = (Button)findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
+        // 블루투스 수동적 연결버튼
+        Button bluetooth_btn = (Button)findViewById(R.id.button);
+        bluetooth_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(mBluetoothAdapter.isEnabled()) {
@@ -140,6 +172,41 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 서버 수동적 연결버튼
+        Button server_btn = (Button)findViewById(R.id.button2);
+        server_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 메세지를 서비스로 전달
+               sendMessageToService("from mainActivity");
+            }
+        });
+
+        // 서버연결 해제버튼
+        /*Button server_btn2 = (Button)findViewById(R.id.button3);
+        server_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                *//*
+                mIsBound = false;
+                stopService(ServerIntent);
+                unbindService(mConnection);
+                *//*
+            }
+        });*/
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        // service 연결 해제
+        mIsBound = false;
+        stopService(ServerIntent);
+        unbindService(mConnection);
     }
 
 
@@ -204,6 +271,45 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        ServerIntent = new Intent(this, MyService.class);
+        startService(ServerIntent);
+        bindService(ServerIntent, mConnection, Context.BIND_AUTO_CREATE); // 서비스와 연결에 대한 정의
+        mIsBound = true;
+        //startService(ServerIntent);
+    }
+
+
+    private final Messenger mMessenger = new Messenger(new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            Log.i("testing0", "act : what " + msg.what);
+            switch (msg.what){
+                case MyService.MSG_SEND_TO_ACTIVITY:
+                    int value1 = msg.getData().getInt("fromService");
+                    String value2 = msg.getData().getString("testfromService");
+                    Log.i("testing0-1", "act : value1 " + value1);
+                    Log.i("testing0-2", "act : value2 " + value2);
+            }
+
+            return false;
+        }
+    }));
+
+    // Service로 메세지를 보냄
+    private void sendMessageToService(String str){
+        if(mIsBound){
+            if(mServiceMessenger != null){
+                try{
+                    Message msg = Message.obtain(null, MyService.MSG_SEND_TO_SERVICE, str);
+                    msg.replyTo = mMessenger;
+                    mServiceMessenger.send(msg);
+                }catch(RemoteException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public class PageAdapter extends FragmentStatePagerAdapter {

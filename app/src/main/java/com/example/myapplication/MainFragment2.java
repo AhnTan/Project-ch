@@ -112,6 +112,7 @@ public class MainFragment2 extends Fragment {
                 }
                 mResult = strBuf.toString();
                 txtResult.setText(mResult);
+                chessBoard.move(results);
                 break;
 
             case R.id.recognitionError:
@@ -159,6 +160,7 @@ public class MainFragment2 extends Fragment {
         // NOTE : release() must be called on stop time.
         naverRecognizer.getSpeechRecognizer().release();
     }
+
 
     // Declare handler for handling SpeechRecognizer thread's Messages.
     static class RecognitionHandler extends Handler {

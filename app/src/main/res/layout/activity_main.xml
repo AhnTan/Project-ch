@@ -79,6 +79,16 @@
                 android:layout_gravity="center"
                 android:background="#555555"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="DisConnect"
+                android:textSize="5dp"
+                android:textColor="#ffffff"
+                android:id="@+id/button3"
+                android:layout_gravity="center"
+                android:background="#555555"/>
+
         </LinearLayout>
 
     </LinearLayout>

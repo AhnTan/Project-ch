@@ -36,6 +36,7 @@
             android:theme="@android:style/Theme.DeviceDefault.Dialog" />
         <activity android:name=".ChessBoard"
             ></activity>
+        <service android:name=".MyService"></service>
     </application>
 
 </manifest>
